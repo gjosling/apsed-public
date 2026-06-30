@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Data (pipeline outputs — not committed)
+data/xlsx/
+data/apsed_*.csv
+data/*.parquet
+data/release/
+
+# But DO track committed reference files
+!data/releases.csv
+
+# Working notes
+TODO.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Claude Code
+.claude/
