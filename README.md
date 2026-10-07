@@ -2,7 +2,7 @@
 
 A Python pipeline that downloads APSC APS Employment Data (APSED) Excel releases, parses headcount tables across two output formats, and produces clean longitudinal datasets of APS headcount by agency, job family, and snapshot date.
 
-The dataset covers twice-yearly snapshots from June 2020 to December 2025. It is designed to pair with the [APS Gazette vacancies dataset](https://github.com/gjosling/aps-gazette-public), using the APSC 2025 Job Family Framework as the common taxonomy.
+The dataset covers twice-yearly snapshots from June 2020 to June 2026. It is designed to pair with the [APS Gazette vacancies dataset](https://github.com/gjosling/aps-gazette-public), using the APSC 2025 Job Family Framework as the common taxonomy.
 
 ## Dataset
 
@@ -34,7 +34,7 @@ The APSC first published an agency-level breakdown by job family in the June 202
 
 **`data/apsed_agency_headcount.csv`:** total headcount by agency (Jun 2020 onwards)
 
-Each row is one agency or sub-agency for a single snapshot date, with headcount split into ongoing and non-ongoing employment categories. Covers all 12 releases from Jun 2020 to Dec 2025. Unlike the job family files, this file counts all employees at every date, including those whose job family is unclassified. Before Jun 2024, those employees do not appear in the job family tables; they are present here throughout.
+Each row is one agency or sub-agency for a single snapshot date, with headcount split into ongoing and non-ongoing employment categories. Covers all 13 releases from Jun 2020 to Jun 2026. Unlike the job family files, this file counts all employees at every date, including those whose job family is unclassified. Before Jun 2024, those employees do not appear in the job family tables; they are present here throughout.
 
 | Column | Description |
 |--------|-------------|
@@ -108,7 +108,7 @@ The APSC's job family taxonomy changed across releases. The dataset preserves jo
 | 2a | Jun 2021–Jun 2023 | 19 | "Science" and "Health" merged into a single "Science and Health" family. "Senior Executive" introduced (renamed from "Organisation Leadership"). "Data and Research" introduced (renamed from "Research"). "Policy" and "Portfolio, Program and Project Management" replace earlier labels. "Development Programme" declining. |
 | 2b | Dec 2023 | 18 | Development Programme dropped (headcount had dwindled to near zero). |
 | 2b+ | Jun 2024–Jun 2025 | 19 | Agency × job family cross-tabulation first appears. "No data" unclassified column added (tens of thousands of staff, roughly 10–15% of the APS per snapshot). |
-| 3 | Dec 2025 | 17 | 2025 Job Family Framework: Science and Health split back into separate families. "Administration" → "Business and Organisational Management". Several renames and merges. 16 substantive families + "No data". |
+| 3 | Dec 2025–Jun 2026 | 17 | 2025 Job Family Framework: Science and Health split back into separate families. "Administration" → "Business and Organisational Management". Several renames and merges. 16 substantive families + "No data". |
 
 *Regime 1 label count: Dec 2020 uses "Program" (American spelling) where Jun 2020 uses "Programme" for two family names, giving 22 distinct labels across the two releases for 20 conceptual families. See the [data dictionary](docs/data_dictionary.md) for details.*
 
@@ -121,7 +121,7 @@ The APSC's job family taxonomy changed across releases. The dataset preserves jo
 - `Senior Executive` (Regime 2b+ in agency_jf)
 - `No data` (Regime 2b+)
 
-For longitudinal Science or Health analysis: Science and Health are merged across Regimes 2a/2b/2b+ (Jun 2021–Jun 2025) and cannot be separated for those periods; they are split back into separate families in Regime 3 (Dec 2025).
+For longitudinal Science or Health analysis: Science and Health are merged across Regimes 2a/2b/2b+ (Jun 2021–Jun 2025) and cannot be separated for those periods; they are split back into separate families in Regime 3 (from Dec 2025).
 
 **"No data" (Jun 2024 onwards).** Employees whose job family is unclassified are counted in a "No data" column starting from the June 2024 release. (tens of thousands of staff, roughly 10–15% of the APS per snapshot; see the taxonomy table above). Prior releases excluded these employees from the job family tables entirely. This was verified by comparing the sum of all job family headcounts against the headline APS employment figure in the source Excel files: a gap of 22,000–27,000 employees exists in every pre-2024 release, and the "No data" count in June 2024 exactly closes it. The apparent headcount jump between December 2023 and June 2024 partly reflects visibility of this previously uncounted population, not purely real growth.
 

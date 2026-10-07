@@ -57,7 +57,10 @@ for date in sorted(totals_by_date):
 
 # ── C2: Agency-table sums vs APS-wide totals ─────────────────────────────────
 
-print("\n=== C2: Agency-table sums vs APS-wide totals (4 overlap releases) ===")
+dates_in_agency = sorted({r["snapshot_date"] for r in agency_rows})
+n_agency_dates  = len(dates_in_agency)
+
+print(f"\n=== C2: Agency-table sums vs APS-wide totals ({n_agency_dates} overlap releases) ===")
 
 # Portfolio dept rows are direct-employee-only (not sub-agency aggregates);
 # summing all rows (portfolio depts + sub-agencies) gives the correct APS total.
@@ -77,9 +80,8 @@ for date in sorted(atotal_by_date):
 
 # ── C3: Agency roster changes ─────────────────────────────────────────────────
 
-print("\n=== C3: Agency roster changes across the 4 agency-table releases ===")
+print(f"\n=== C3: Agency roster changes across the {n_agency_dates} agency-table releases ===")
 
-dates_in_agency = sorted({r["snapshot_date"] for r in agency_rows})
 top_by_date: dict[str, set] = defaultdict(set)
 sub_by_date: dict[str, set] = defaultdict(set)
 for r in agency_rows:
@@ -94,7 +96,7 @@ print(f"  Sub-agency counts:     { {d: len(sub_by_date[d]) for d in dates_in_age
 all_top = set().union(*top_by_date.values())
 all_sub = set().union(*sub_by_date.values())
 
-print("\n  Portfolio departments NOT present in all 4 releases:")
+print(f"\n  Portfolio departments NOT present in all {n_agency_dates} releases:")
 missing_top = []
 for ag in sorted(all_top):
     dates_present = [d for d in dates_in_agency if ag in top_by_date[d]]
@@ -104,7 +106,7 @@ for ag in sorted(all_top):
 if not missing_top:
     print("    (all present in every release ✓)")
 
-print("\n  Sub-agencies NOT present in all 4 releases (max 20 shown):")
+print(f"\n  Sub-agencies NOT present in all {n_agency_dates} releases (max 20 shown):")
 missing_sub = []
 for ag in sorted(all_sub):
     dates_present = [d for d in dates_in_agency if ag in sub_by_date[d]]
@@ -152,8 +154,6 @@ for r in agency_rows:
         seen_dates.add(r["snapshot_date"])
         print(f"    {r['snapshot_date']}  regime={r['taxonomy_regime']}  "
               f"agency={r['agency'][:30]}  headcount={r['headcount'] or '(suppressed)'}")
-        if len(seen_dates) >= 4:
-            break
 
 # ── C6: Agency headcount totals vs APS-wide totals ───────────────────────────
 

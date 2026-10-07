@@ -42,7 +42,7 @@ OUTPUT_COLS = [
 # Unclassified-employee column label varies across releases; normalise all to "No data".
 #   "No Data"   — Jun 2024, Dec 2024
 #   "Zero Data" — Jun 2025
-#   "No data"   — Dec 2025 (Regime 3 canonical)
+#   "No data"   — Dec 2025, Jun 2026 (Regime 3 canonical)
 _FAMILY_NORMALISE: dict[str, str] = {
     "No Data": "No data",
     "Zero Data": "No data",
